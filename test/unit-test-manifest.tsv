@@ -1,0 +1,13 @@
+function	test_kind	test_source
+p101_fmtmsg	fault	test/test_fault_wrappers.c
+p101_closelog	behavior	test/test_behavior.c
+p101_err	behavior	test/test_behavior.c
+p101_errx	behavior	test/test_behavior.c
+p101_openlog	behavior	test/test_behavior.c
+p101_setlogmask	behavior	test/test_behavior.c
+p101_verr	behavior	test/test_behavior.c
+p101_verrx	behavior	test/test_behavior.c
+p101_vwarn	behavior	test/test_behavior.c
+p101_vwarnx	behavior	test/test_behavior.c
+p101_warn	behavior	test/test_behavior.c
+p101_warnx	behavior	test/test_behavior.c

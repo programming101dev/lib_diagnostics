@@ -11,11 +11,16 @@ void p101_closelog(const struct p101_env *env)
     P101_TRACE_EXIT(env);
 }
 
-void p101_openlog(const struct p101_env *env, const char *ident, int logopt, int facility)
+void p101_openlog(const struct p101_env *env, struct p101_error *err, const char *ident, int logopt, int facility)
 {
     P101_TRACE(env);
+    P101_WRAPPER_FAULT_RETURN_VOID(env, err);
     errno = 0;
     openlog(ident, logopt, facility);
+    if(errno != 0)
+    {
+        P101_ERROR_RAISE_ERRNO(err, errno);
+    }
     P101_TRACK_RESOURCE_ACQUIRE(env, "syslog-session", "process", 0U, ident);
     P101_TRACE_EXIT(env);
 }

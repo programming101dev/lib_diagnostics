@@ -124,7 +124,7 @@ int main(void)
     }
 
     /* P101_TEST_CASE(p101_openlog) */
-    p101_openlog(env, "p101-test", LOG_PID, LOG_USER);
+    p101_openlog(env, err, "p101-test", LOG_PID, LOG_USER);
     /* P101_TEST_CASE(p101_setlogmask) */
     old_mask = p101_setlogmask(env, LOG_UPTO(LOG_ERR));
     (void)p101_setlogmask(env, old_mask);

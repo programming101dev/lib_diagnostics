@@ -7,7 +7,7 @@ int p101_fmtmsg(const struct p101_env *env, struct p101_error *err, long classif
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, MM_NOTOK);
+    P101_WRAPPER_FAULT_RETURN_SYSTEM_CODE(env, err);
     errno   = 0;
     ret_val = fmtmsg(classification, label, severity, text, action, tag);
 

@@ -54,6 +54,7 @@ P101_ATTR_NORETURN void p101_verr(const struct p101_env *env, int eval, const ch
     saved_errno = errno;
     P101_TRACE(env);
     P101_TRACE_EXIT(env);
+    p101_env_complete_event_streams(env);
     errno = saved_errno;
     verr(eval, fmt, args);
 }
@@ -62,6 +63,7 @@ P101_ATTR_NORETURN void p101_verrx(const struct p101_env *env, int eval, const c
 {
     P101_TRACE(env);
     P101_TRACE_EXIT(env);
+    p101_env_complete_event_streams(env);
     verrx(eval, fmt, args);
 }
 

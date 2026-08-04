@@ -159,14 +159,14 @@ static void test_p101_fmtmsg(struct p101_env *env, struct p101_error *err)
 static void test_p101_openlog(struct p101_env *env, struct p101_error *err)
 {
 #ifdef __linux__
-    static const int         errors[]      = {EIO};
-    static const char *const error_names[] = {"EIO"};
+    static const int         errors[]      = {EMFILE, ENFILE};
+    static const char *const error_names[] = {"EMFILE", "ENFILE"};
 #elif defined(__APPLE__)
     static const int         errors[]      = {EMFILE, ENFILE};
     static const char *const error_names[] = {"EMFILE", "ENFILE"};
 #elif defined(__FreeBSD__)
-    static const int         errors[]      = {EIO};
-    static const char *const error_names[] = {"EIO"};
+    static const int         errors[]      = {EMFILE, ENFILE};
+    static const char *const error_names[] = {"EMFILE", "ENFILE"};
 #else
     static const int         errors[]      = {EMFILE, ENFILE};
     static const char *const error_names[] = {"EMFILE", "ENFILE"};

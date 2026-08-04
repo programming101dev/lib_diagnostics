@@ -22,51 +22,6 @@
     #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 #endif
 
-P101_ATTR_NORETURN void p101_err(const struct p101_env *env, int eval, const char *fmt, ...)
-{
-    va_list args;
-    int     saved_errno;
-
-    saved_errno = errno;
-    P101_TRACE(env);
-    va_start(args, fmt);
-    P101_TRACE_EXIT(env);
-    errno = saved_errno;
-    p101_verr(env, eval, fmt, args);
-    va_end(args);
-}
-
-P101_ATTR_NORETURN void p101_errx(const struct p101_env *env, int eval, const char *fmt, ...)
-{
-    va_list args;
-
-    P101_TRACE(env);
-    va_start(args, fmt);
-    P101_TRACE_EXIT(env);
-    p101_verrx(env, eval, fmt, args);
-    va_end(args);
-}
-
-P101_ATTR_NORETURN void p101_verr(const struct p101_env *env, int eval, const char *fmt, va_list args)
-{
-    int saved_errno;
-
-    saved_errno = errno;
-    P101_TRACE(env);
-    P101_TRACE_EXIT(env);
-    p101_env_complete_event_streams(env);
-    errno = saved_errno;
-    verr(eval, fmt, args);
-}
-
-P101_ATTR_NORETURN void p101_verrx(const struct p101_env *env, int eval, const char *fmt, va_list args)
-{
-    P101_TRACE(env);
-    P101_TRACE_EXIT(env);
-    p101_env_complete_event_streams(env);
-    verrx(eval, fmt, args);
-}
-
 void p101_vwarn(const struct p101_env *env, const char *fmt, va_list args)
 {
     int saved_errno;

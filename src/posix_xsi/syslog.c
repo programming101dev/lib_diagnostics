@@ -22,7 +22,7 @@ void p101_openlog(const struct p101_env *env, struct p101_error *err, const char
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
     P101_TRACK_RESOURCE_ACQUIRE(env, "syslog-session", "process", 0U, ident);
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
 }
 
 int p101_setlogmask(const struct p101_env *env, int maskpri)

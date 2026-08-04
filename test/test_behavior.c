@@ -5,9 +5,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/wait.h>
 #include <syslog.h>
-#include <unistd.h>
 
 static int failures;
 
@@ -41,68 +39,11 @@ static void call_vwarnx(const struct p101_env *env, const char *format, ...)
     va_end(arguments);
 }
 
-static P101_ATTR_NORETURN void call_verr(const struct p101_env *env, int status, const char *format, ...)
-{
-    va_list arguments;
-
-    va_start(arguments, format);
-    /* P101_TEST_CASE(p101_verr) */
-    p101_verr(env, status, format, arguments);
-    va_end(arguments);
-}
-
-static P101_ATTR_NORETURN void call_verrx(const struct p101_env *env, int status, const char *format, ...)
-{
-    va_list arguments;
-
-    va_start(arguments, format);
-    /* P101_TEST_CASE(p101_verrx) */
-    p101_verrx(env, status, format, arguments);
-    va_end(arguments);
-}
-
 static void silence_standard_error(void)
 {
     FILE *stream = freopen("/dev/null", "w", stderr);
 
     (void)stream;
-}
-
-static int child_exit_status(const struct p101_env *env, int which)
-{
-    pid_t child;
-    int   status;
-
-    child = fork();
-    if(child == 0)
-    {
-        silence_standard_error();
-        errno = ENOENT;
-        switch(which)
-        {
-            case 0:
-                /* P101_TEST_CASE(p101_err) */
-                p101_err(env, 21, "%s", "err");
-            case 1:
-                /* P101_TEST_CASE(p101_errx) */
-                p101_errx(env, 22, "%s", "errx");
-            case 2:
-                call_verr(env, 23, "%s", "verr");
-            case 3:
-                call_verrx(env, 24, "%s", "verrx");
-            default:
-                _exit(99);
-        }
-    }
-    if(child < 0)
-    {
-        return -1;
-    }
-    if(waitpid(child, &status, 0) != child || !WIFEXITED(status))
-    {
-        return -1;
-    }
-    return WEXITSTATUS(status);
 }
 
 int main(void)
@@ -139,11 +80,6 @@ int main(void)
     p101_warnx(env, "%s", "warnx");
     call_vwarn(env, "%s", "vwarn");
     call_vwarnx(env, "%s", "vwarnx");
-
-    EXPECT(child_exit_status(env, 0) == 21);
-    EXPECT(child_exit_status(env, 1) == 22);
-    EXPECT(child_exit_status(env, 2) == 23);
-    EXPECT(child_exit_status(env, 3) == 24);
 
     p101_env_destroy(env);
     p101_error_destroy(err);

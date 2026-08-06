@@ -19,9 +19,7 @@ set(BSD_STANDARD_FLAGS -D_BSD_SOURCE -D__BSD_VISIBLE)
 
 set(LIBRARY_TARGETS p101_diagnostics)
 set(p101_diagnostics_SOURCES
-        src/posix_xsi/fmtmsg.c
-        src/posix_xsi/syslog.c
-        src/unix/err.c
+        src/diagnostics.c
 )
 set(p101_diagnostics_HEADERS
         include/p101_diagnostics/diagnostics.h

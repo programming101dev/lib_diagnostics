@@ -19,10 +19,14 @@ set(BSD_STANDARD_FLAGS -D_BSD_SOURCE -D__BSD_VISIBLE)
 
 set(LIBRARY_TARGETS p101_diagnostics)
 set(p101_diagnostics_SOURCES
-        src/diagnostics.c
+        src/err.c
+        src/fmtmsg.c
+        src/syslog.c
 )
 set(p101_diagnostics_HEADERS
-        include/p101_diagnostics/diagnostics.h
+        include/p101_diagnostics/p101_err.h
+        include/p101_diagnostics/p101_fmtmsg.h
+        include/p101_diagnostics/p101_syslog.h
 )
 set(p101_diagnostics_LINK_LIBRARIES
         p101_error

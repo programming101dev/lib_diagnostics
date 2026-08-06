@@ -1,5 +1,7 @@
 #include <errno.h>
-#include <p101_diagnostics/diagnostics.h>
+#include <p101_diagnostics/p101_err.h>
+#include <p101_diagnostics/p101_fmtmsg.h>
+#include <p101_diagnostics/p101_syslog.h>
 #include <p101_env/env.h>
 #include <p101_error/error.h>
 #include <stdarg.h>

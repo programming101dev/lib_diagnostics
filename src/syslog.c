@@ -15,6 +15,7 @@
  */
 
 #include "p101_diagnostics/p101_syslog.h"
+#include <p101_env/resource_classes.h>
 #include <p101_env/wrapper.h>
 #include <syslog.h>
 
@@ -23,7 +24,7 @@ void p101_closelog(const struct p101_env *env)
     P101_TRACE(env);
     errno = 0;
     closelog();
-    P101_TRACK_RESOURCE_RELEASE(env, "syslog-session", "process", NULL);
+    P101_TRACK_RESOURCE_RELEASE(env, P101_RESOURCE_CLASS_SYSLOG_SESSION, "process", NULL);
     P101_TRACE_EXIT(env);
 }
 
@@ -37,7 +38,7 @@ void p101_openlog(const struct p101_env *env, struct p101_error *err, const char
     {
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
-    P101_TRACK_RESOURCE_ACQUIRE(env, "syslog-session", "process", 0U, ident);
+    P101_TRACK_RESOURCE_ACQUIRE(env, P101_RESOURCE_CLASS_SYSLOG_SESSION, "process", 0U, ident);
     P101_WRAPPER_DONE(env);
 }
 
